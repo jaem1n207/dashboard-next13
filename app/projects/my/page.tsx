@@ -1,11 +1,12 @@
+import ErrorBoundary from '@/components/error-boundary';
 import Example from '@/components/example';
 import React from 'react';
 
 const MyProject = () => {
   return (
-    <div>
+    <ErrorBoundary>
       <Example />
-    </div>
+    </ErrorBoundary>
   );
 };
 
