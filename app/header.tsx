@@ -1,6 +1,6 @@
 'use client';
 
-import { GlobalOutlined, NotificationOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, GlobalOutlined, NotificationOutlined } from '@ant-design/icons';
 import { theme, Layout, Space, Button, Tooltip, Dropdown, message } from 'antd';
 import type { MenuProps } from 'antd/lib/menu';
 
@@ -49,7 +49,10 @@ const Header = () => {
       <AntdHeader className={`shadow-md p-0 bg-[${colorBgContainer}]`}>
         <div className="relative flex items-center h-full px-4">
           <div className="flex-1" />
-          <Space className="flex float-right h-full gap-2 ml-auto overflow-hidden">
+          <Space className="flex float-right h-full gap-2 ml-auto overflow-auto">
+            <Button>
+              Styler 바로가기 <ArrowRightOutlined />
+            </Button>
             <Dropdown
               menu={{ items, selectable: true, defaultSelectedKeys: ['ko'] }}
               trigger={['click']}>
