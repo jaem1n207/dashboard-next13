@@ -1,4 +1,5 @@
 import { Card, Flex, Metric, ProgressBar, Text } from '@/lib/tremor';
+import { Button } from '@/lib/antd';
 import React from 'react';
 
 const Example = () => {
@@ -13,6 +14,7 @@ const Example = () => {
         </Flex>
         <ProgressBar percentageValue={32} className="mt-2" />
       </Card>
+      <Button type="primary">Hello</Button>
     </div>
   );
 };
