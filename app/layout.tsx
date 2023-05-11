@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <RootStyleRegistry>
           <Layout className="min-h-screen">
             <Sider />
-            <Layout className="site-layout">
+            <Layout className="bg-white site-layout">
               <Header />
               {children}
               <Footer />

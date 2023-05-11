@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import React from 'react';
+import Content from './content';
 
 export const metadata: Metadata = {
   title: '기업 라이브러리',
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const EnterpriseLibrary = () => {
-  return <div>EnterpriseLibrary</div>;
+  return <Content />;
 };
 
 export default EnterpriseLibrary;

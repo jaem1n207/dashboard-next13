@@ -1,19 +1,31 @@
+'use client';
+
+import { Breadcrumb, theme, Layout } from 'antd';
 import React from 'react';
 
-import { Title } from '@/lib/tremor';
+const { Content: AntdContent } = Layout;
 
 const Content = () => {
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
+
   return (
-    <div>
-      <Title>Hello</Title>
-    </div>
-    //   <div style={{ margin: '0 16px' }}>
-    //     <Breadcrumb style={{ margin: '16px 0' }}>
-    //       <Breadcrumb.Item>User</Breadcrumb.Item>
-    //       <Breadcrumb.Item>Bill</Breadcrumb.Item>
-    //     </Breadcrumb>
-    //     <div style={{ padding: 24, minHeight: 360 }}>Bill is a cat.</div>
-    //   </div>
+    <AntdContent className="mx-4">
+      <Breadcrumb
+        className="mt-4"
+        items={[
+          {
+            key: 'user',
+            title: 'User',
+          },
+          {
+            key: 'bill',
+            title: 'Bill',
+          },
+        ]}></Breadcrumb>
+      <div className={`p-6 min-h-[360px] bg-${colorBgContainer}`}>Bill is a cat.</div>
+    </AntdContent>
   );
 };
 

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import React from 'react';
+import Content from './content';
 
 export const metadata: Metadata = {
   title: '데이터 분석',
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const Analysis = () => {
-  return <div>Hello</div>;
+  return <Content />;
 };
 
 export default Analysis;

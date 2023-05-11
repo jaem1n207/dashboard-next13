@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import React from 'react';
 
-import ErrorBoundary from '@/components/error-boundary';
-
 import Content from './content';
 
 export const metadata: Metadata = {
@@ -11,11 +9,7 @@ export const metadata: Metadata = {
 };
 
 const MyProject = () => {
-  return (
-    <ErrorBoundary>
-      <Content />
-    </ErrorBoundary>
-  );
+  return <Content />;
 };
 
 export default MyProject;
