@@ -4,12 +4,15 @@ import { Layout } from '@/lib/antd';
 import { RootStyleRegistry } from './antd';
 import './globals.css';
 import Header from './header';
+import Sider from './sider';
+import Footer from './footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
   title: '대시보드',
   description: 'Next13 사용하여 대시보드 만들기',
+  viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -18,8 +21,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body suppressHydrationWarning className={inter.className}>
         <RootStyleRegistry>
           <Layout className="min-h-screen">
-            <Header />
-            {children}
+            <Sider />
+            <Layout className="site-layout">
+              <Header />
+              {children}
+              <Footer />
+            </Layout>
           </Layout>
         </RootStyleRegistry>
       </body>

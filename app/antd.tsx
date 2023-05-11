@@ -24,6 +24,7 @@ export const RootStyleRegistry = ({ children }: PropsWithChildren) => {
       theme={{
         token: {
           colorPrimary: 'rgb(74, 144, 226)',
+          colorBgContainer: '#fff',
         },
       }}>
       <StyleProvider hashPriority="high" cache={cache}>

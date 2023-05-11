@@ -8,7 +8,9 @@ const GlobalError = ({ error, reset }: { error: Error; reset: () => void }) => {
     <html>
       <body>
         <Title>문제가 발생했어요.</Title>
-        <Button onClick={() => reset()}>다시 시도할게요.</Button>
+        <Button type="primary" onClick={() => reset()}>
+          다시 시도할게요.
+        </Button>
       </body>
     </html>
   );
