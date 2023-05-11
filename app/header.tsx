@@ -1,7 +1,12 @@
 'use client';
 
 import { Menu } from 'antd';
-import { CodeSandboxOutlined, SettingOutlined, TrophyOutlined } from '@ant-design/icons';
+import {
+  CodeSandboxOutlined,
+  DropboxOutlined,
+  SettingOutlined,
+  TrophyOutlined,
+} from '@ant-design/icons';
 import Sider from 'antd/es/layout/Sider';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -18,6 +23,14 @@ const Header = () => {
         mode="inline"
         defaultSelectedKeys={['1']}
         items={[
+          {
+            key: 'my-project',
+            icon: <DropboxOutlined />,
+            label: '내 프로젝트',
+            onClick: () => {
+              router.push('projects/my');
+            },
+          },
           {
             key: 'enterprise-library',
             icon: <CodeSandboxOutlined />,
