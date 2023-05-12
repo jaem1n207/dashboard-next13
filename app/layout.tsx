@@ -1,11 +1,12 @@
 import { Inter } from 'next/font/google';
 
 import { Layout } from '@/lib/antd';
-import { RootStyleRegistry } from './antd';
 import './globals.css';
 import Header from './header';
 import Sider from './sider';
 import Footer from './footer';
+import AntdStyleRegistry from '@/lib/antd-registry';
+import StyledComponentRegistry from '@/lib/styled-registry';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,16 +20,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body suppressHydrationWarning className={inter.className}>
-        <RootStyleRegistry>
-          <Layout className="min-h-screen">
-            <Sider />
-            <Layout className="bg-white site-layout">
-              <Header />
-              {children}
-              <Footer />
+        <AntdStyleRegistry>
+          <StyledComponentRegistry>
+            <Layout className="min-h-screen">
+              <Sider />
+              <Layout className="bg-white site-layout">
+                <Header />
+                {children}
+                <Footer />
+              </Layout>
             </Layout>
-          </Layout>
-        </RootStyleRegistry>
+          </StyledComponentRegistry>
+        </AntdStyleRegistry>
       </body>
     </html>
   );
