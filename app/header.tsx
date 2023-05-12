@@ -1,12 +1,21 @@
 'use client';
 
-import { ArrowRightOutlined, GlobalOutlined, NotificationOutlined } from '@ant-design/icons';
-import { theme, Layout, Space, Button, Tooltip, Dropdown, message } from 'antd';
+import {
+  ArrowRightOutlined,
+  EditOutlined,
+  GlobalOutlined,
+  LogoutOutlined,
+  NotificationOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
+import { theme, Layout, Space, Tooltip, Dropdown, message, Divider } from 'antd';
 import type { MenuProps } from 'antd/lib/menu';
+
+import ResponsiveButton from '@/components/responsive-button';
 
 const { Header: AntdHeader } = Layout;
 
-const items: MenuProps['items'] = [
+const languagesItems: MenuProps['items'] = [
   {
     key: 'ko',
     label: '한국어',
@@ -29,6 +38,24 @@ const items: MenuProps['items'] = [
   },
 ];
 
+const userItems: MenuProps['items'] = [
+  {
+    key: 'profile',
+    label: '프로필',
+    icon: <UserOutlined />,
+  },
+  {
+    key: 'settings',
+    label: '설정',
+    icon: <EditOutlined />,
+  },
+  {
+    key: 'logout',
+    label: '로그아웃',
+    icon: <LogoutOutlined />,
+  },
+];
+
 const Header = () => {
   const {
     token: { colorBgContainer },
@@ -40,6 +67,10 @@ const Header = () => {
     messageApi.open({
       type: 'success',
       content: '모든 알림을 확인했습니다.',
+      onClick: () => {
+        messageApi.destroy();
+      },
+      duration: 1.5,
     });
   };
 
@@ -50,19 +81,30 @@ const Header = () => {
         <div className="relative flex items-center h-full px-4">
           <div className="flex-1" />
           <Space className="flex float-right h-full gap-2 ml-auto overflow-auto">
-            <Button>
+            <ResponsiveButton>
               Styler 바로가기 <ArrowRightOutlined />
-            </Button>
+            </ResponsiveButton>
             <Dropdown
-              menu={{ items, selectable: true, defaultSelectedKeys: ['ko'] }}
+              menu={{ items: languagesItems, selectable: true, defaultSelectedKeys: ['ko'] }}
               trigger={['click']}>
-              <Button icon={<GlobalOutlined />} type="default">
+              <ResponsiveButton icon={<GlobalOutlined />} type="default">
                 언어 변경
-              </Button>
+              </ResponsiveButton>
             </Dropdown>
             <Tooltip title="알림">
-              <Button icon={<NotificationOutlined />} onClick={handleClearAllNotifications} />
+              <ResponsiveButton
+                icon={<NotificationOutlined />}
+                onClick={handleClearAllNotifications}
+              />
             </Tooltip>
+            <Divider type="vertical" />
+            <Dropdown
+              menu={{ items: userItems, selectable: true, defaultSelectedKeys: ['profile'] }}
+              trigger={['click']}>
+              <ResponsiveButton icon={<UserOutlined />} type="primary">
+                Ben
+              </ResponsiveButton>
+            </Dropdown>
           </Space>
         </div>
       </AntdHeader>

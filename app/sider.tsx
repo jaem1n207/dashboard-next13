@@ -1,6 +1,6 @@
 'use client';
 
-import { Menu } from 'antd';
+import { Menu, theme } from 'antd';
 import {
   CodeSandboxOutlined,
   DropboxOutlined,
@@ -8,21 +8,46 @@ import {
   TrophyOutlined,
 } from '@ant-design/icons';
 import AntdSider from 'antd/es/layout/Sider';
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { type ScreenSize, useScreenSize } from '@/hooks/use-screen-size';
 
 const Sider = () => {
   const router = useRouter();
 
-  const [collapsed, setCollapsed] = useState(false);
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
+
+  const [collapsed, setCollapsed] = React.useState(false);
+
+  const [collapsedWidth, setCollapsedWidth] = React.useState(0);
+  const screenSize = useScreenSize();
+
+  useEffect(() => {
+    const hideCollapsedSizes: ScreenSize[] = ['xs', 'sm'];
+    const defaultCollapsedSizes: ScreenSize[] = hideCollapsedSizes.concat(['md']);
+
+    hideCollapsedSizes.includes(screenSize) ? setCollapsedWidth(0) : setCollapsedWidth(80);
+    defaultCollapsedSizes.includes(screenSize) ? setCollapsed(true) : setCollapsed(false);
+  }, [screenSize]);
 
   return (
-    <AntdSider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)}>
-      <div className="h-8 m-4 text-2xl text-center text-white truncate">Archisketch</div>
+    <AntdSider
+      breakpoint="md"
+      collapsedWidth={collapsedWidth}
+      collapsible
+      collapsed={collapsed}
+      onCollapse={collapsed => {
+        setCollapsed(collapsed);
+      }}
+      theme="light"
+      className={`bg-${colorBgContainer}`}>
+      <div className="h-8 m-4 text-2xl text-center text-black truncate">Archisketch</div>
       <div className="logo" />
       <Menu
-        theme="dark"
         mode="inline"
+        className="h-full"
         defaultSelectedKeys={['my-project']}
         items={[
           {
