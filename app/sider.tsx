@@ -8,7 +8,7 @@ import {
   TrophyOutlined,
 } from '@ant-design/icons';
 import AntdSider from 'antd/es/layout/Sider';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { type ScreenSize, useScreenSize } from '@/hooks/use-screen-size';
 
@@ -19,9 +19,9 @@ const Sider = () => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const [collapsed, setCollapsed] = React.useState(false);
+  const [collapsed, setCollapsed] = useState(false);
 
-  const [collapsedWidth, setCollapsedWidth] = React.useState(0);
+  const [collapsedWidth, setCollapsedWidth] = useState(0);
   const screenSize = useScreenSize();
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const Sider = () => {
         setCollapsed(collapsed);
       }}
       theme="light"
-      className={`bg-${colorBgContainer}`}>
+      className={`bg-${colorBgContainer} h-[calc(100vh-32px)]`}>
       <div className="h-8 m-4 text-2xl text-center text-black truncate">Archisketch</div>
       <div className="logo" />
       <Menu
