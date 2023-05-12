@@ -1,6 +1,17 @@
 import { useEffect, useState } from 'react';
 
-type ScreenSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+export type ScreenSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+
+const debounce = <T extends (...args: any[]) => any>(func: T, wait: number): T => {
+  let timeout: ReturnType<typeof setTimeout> | null;
+  
+  const debounced = (...args: Parameters<T>) => {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+
+  return debounced as unknown as T;
+};
 
 const screenSizes: { minWidth: number; size: ScreenSize }[] = [
   { minWidth: 1600, size: 'xxl' },
@@ -30,8 +41,10 @@ export const useScreenSize = (): ScreenSize => {
       setScreenSize(getScreenSize());
     };
 
-    window.addEventListener('resize', updateScreenSize);
-    return () => window.removeEventListener('resize', updateScreenSize);
+    const debouncedUpdateScreenSize = debounce(updateScreenSize, 150);
+
+    window.addEventListener('resize', debouncedUpdateScreenSize);
+    return () => window.removeEventListener('resize', debouncedUpdateScreenSize);
   }, []);
 
   return screenSize;
