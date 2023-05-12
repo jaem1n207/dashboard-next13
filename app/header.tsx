@@ -8,7 +8,7 @@ import {
   NotificationOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { theme, Layout, Space, Tooltip, Dropdown, message, Divider } from 'antd';
+import { Layout, Space, Tooltip, Dropdown, message, Divider } from 'antd';
 import type { MenuProps } from 'antd/lib/menu';
 
 import ResponsiveButton from '@/components/responsive-button';
@@ -57,10 +57,6 @@ const userItems: MenuProps['items'] = [
 ];
 
 const Header = () => {
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
-
   const [messageApi, contextHolder] = message.useMessage();
 
   const handleClearAllNotifications = () => {
@@ -77,7 +73,7 @@ const Header = () => {
   return (
     <>
       {contextHolder}
-      <AntdHeader className={`shadow-md p-0 bg-[${colorBgContainer}]`}>
+      <AntdHeader className="p-0 bg-white shadow-sm">
         <div className="relative flex items-center h-full px-4">
           <div className="flex-1" />
           <Space className="flex float-right h-full gap-2 ml-auto overflow-auto">
