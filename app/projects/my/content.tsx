@@ -30,6 +30,24 @@ const treeData: DataNode[] = [
   },
 ];
 
+type User = {
+  id: string;
+  name: string;
+  thumbnail: string;
+};
+
+type Project = {
+  id: string;
+  name: string;
+  description: string;
+  createdAt: Date;
+  updatedAt: Date;
+  author: User;
+  members: User[];
+  thumbnail: string;
+  bookmarked: boolean;
+};
+
 const Content = () => {
   const onSelect: DirectoryTreeProps['onSelect'] = (keys, info) => {
     console.log('Trigger Select', keys, info);
@@ -38,6 +56,26 @@ const Content = () => {
   const onExpand: DirectoryTreeProps['onExpand'] = (keys, info) => {
     console.log('Trigger Expand', keys, info);
   };
+
+  const fakeProjects: Project[] = Array.from({ length: 30 }).map((_, i) => ({
+    id: `${i}`,
+    name: `프로젝트 ${i}`,
+    description: `프로젝트 ${i} 설명`,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    author: {
+      id: `${i}`,
+      name: `유저 ${i}`,
+      thumbnail: `https://picsum.photos/seed/${i}/200/300`,
+    },
+    members: Array.from({ length: 2 }).map((_, j) => ({
+      id: `${j}`,
+      name: `유저 ${j}`,
+      thumbnail: `https://picsum.photos/seed/${j}/200/300`,
+    })),
+    thumbnail: `https://picsum.photos/seed/${i}/200/300`,
+    bookmarked: Math.random() > 0.5,
+  }));
 
   return (
     <>
@@ -62,7 +100,7 @@ const Content = () => {
         </Col>
       </Row>
       <CustomDivider />
-      <Row align="middle" gutter={[12, 4]}>
+      <Row align="top" gutter={[12, 4]}>
         <Col span={0} md={6} lg={8}>
           <DirectoryTree
             multiple
@@ -74,9 +112,9 @@ const Content = () => {
         </Col>
         <Col span={24} md={18} lg={16}>
           <Row>
-            {Array.from({ length: 10 }).map((_, i) => (
-              <Col key={i} span={12} md={8} lg={6}>
-                <Text>프로젝트 카드</Text>
+            {fakeProjects.map(project => (
+              <Col key={project.id} span={12} md={8} lg={6}>
+                <Text>{project.name}</Text>
               </Col>
             ))}
           </Row>
