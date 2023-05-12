@@ -4,9 +4,8 @@ import { useState, type PropsWithChildren } from 'react';
 import { ConfigProvider } from 'antd';
 import { createCache, extractStyle, StyleProvider } from '@ant-design/cssinjs';
 import { useServerInsertedHTML } from 'next/navigation';
-import 'antd/dist/reset.css';
 
-export const RootStyleRegistry = ({ children }: PropsWithChildren) => {
+const AntdStyleRegistry = ({ children }: PropsWithChildren) => {
   const [cache] = useState(() => createCache());
 
   useServerInsertedHTML(() => {
@@ -33,3 +32,5 @@ export const RootStyleRegistry = ({ children }: PropsWithChildren) => {
     </ConfigProvider>
   );
 };
+
+export default AntdStyleRegistry;
