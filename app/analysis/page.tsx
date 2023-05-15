@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import React from 'react';
+
 import Content from './content';
 
 export const metadata: Metadata = {
