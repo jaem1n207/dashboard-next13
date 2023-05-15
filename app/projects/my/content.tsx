@@ -4,6 +4,9 @@ import { Subtitle, Text } from '@tremor/react';
 import { Input, Row, Col, Divider } from 'antd';
 import Tree, { type DataNode, type DirectoryTreeProps } from 'antd/es/tree';
 import React from 'react';
+import { faker } from '@faker-js/faker';
+
+import ProjectCard, { User } from '../project-card';
 
 const CustomDivider = () => <Divider type="horizontal" className="my-3 sm:my-4" />;
 
@@ -30,12 +33,6 @@ const treeData: DataNode[] = [
   },
 ];
 
-type User = {
-  id: string;
-  name: string;
-  thumbnail: string;
-};
-
 type Project = {
   id: string;
   name: string;
@@ -57,25 +54,29 @@ const Content = () => {
     console.log('Trigger Expand', keys, info);
   };
 
-  const fakeProjects: Project[] = Array.from({ length: 30 }).map((_, i) => ({
-    id: `${i}`,
-    name: `프로젝트 ${i}`,
-    description: `프로젝트 ${i} 설명`,
-    createdAt: new Date(),
-    updatedAt: new Date(),
+  const createRandomProject = (): Project => ({
+    id: faker.string.uuid(),
+    name: faker.lorem.words(),
+    description: faker.lorem.paragraph(),
+    createdAt: faker.date.past(),
+    updatedAt: faker.date.past(),
     author: {
-      id: `${i}`,
-      name: `유저 ${i}`,
-      thumbnail: `https://picsum.photos/seed/${i}/200/300`,
+      id: faker.string.uuid(),
+      name: faker.internet.userName(),
+      imageUrl: faker.image.avatar(),
     },
-    members: Array.from({ length: 2 }).map((_, j) => ({
-      id: `${j}`,
-      name: `유저 ${j}`,
-      thumbnail: `https://picsum.photos/seed/${j}/200/300`,
+    members: Array.from({ length: 10 }).map(() => ({
+      id: faker.string.uuid(),
+      name: faker.internet.userName(),
+      imageUrl: faker.image.avatar(),
     })),
-    thumbnail: `https://picsum.photos/seed/${i}/200/300`,
+    thumbnail: faker.image.url(),
     bookmarked: Math.random() > 0.5,
-  }));
+  });
+
+  const PROJECTS = faker.helpers.multiple(createRandomProject, {
+    count: 30,
+  });
 
   return (
     <>
@@ -101,7 +102,7 @@ const Content = () => {
       </Row>
       <CustomDivider />
       <Row className="flex-1 overflow-auto" align="top" gutter={[12, 4]}>
-        <Col span={0} md={6} lg={8} xxl={4} className="h-full overflow-auto">
+        <Col span={0} md={6} lg={8} xl={6} xxl={4} className="h-full overflow-auto">
           <DirectoryTree
             multiple
             defaultExpandAll
@@ -114,12 +115,20 @@ const Content = () => {
           span={24}
           md={18}
           lg={16}
+          xl={18}
           xxl={20}
           className="h-full overflow-x-hidden overflow-y-auto">
-          <Row>
-            {fakeProjects.map(project => (
-              <Col key={project.id} span={12} md={8} lg={6}>
-                <Text>{project.name}</Text>
+          <Row gutter={[12, 12]}>
+            {PROJECTS.map(project => (
+              <Col key={project.id} span={12} lg={8} xl={6}>
+                <ProjectCard
+                  author={project.author}
+                  date={project.createdAt}
+                  imageUrl={project.thumbnail}
+                  name={project.name}
+                  users={project.members}
+                  key={project.id}
+                />
               </Col>
             ))}
           </Row>
