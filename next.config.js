@@ -7,6 +7,9 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  images: {
+    domains: ['picsum.photos', 'loremflickr.com'],
+  },
 };
 
 module.exports = nextConfig;
