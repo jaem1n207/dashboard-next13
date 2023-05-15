@@ -7,9 +7,7 @@ import { type ScreenSize as ScreenSizeType, useScreenSize } from '@/hooks/use-sc
 
 type ResponsiveButtonProps = Omit<ButtonProps, 'size'>;
 
-const ResponsiveButton = (props: ResponsiveButtonProps) => {
-  const { children } = props;
-
+const ResponsiveButton = ({ children, ...props }: ResponsiveButtonProps) => {
   const screensize = useScreenSize();
 
   const size = useMemo((): ButtonProps['size'] => {

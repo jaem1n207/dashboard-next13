@@ -1,12 +1,7 @@
 'use client';
 
 import { Menu, theme } from 'antd';
-import {
-  CodeSandboxOutlined,
-  DropboxOutlined,
-  SettingOutlined,
-  TrophyOutlined,
-} from '@ant-design/icons';
+import { DropboxOutlined, SettingOutlined, TrophyOutlined } from '@ant-design/icons';
 import AntdSider from 'antd/es/layout/Sider';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -56,14 +51,6 @@ const Sider = () => {
             label: '내 프로젝트',
             onClick: () => {
               router.push('projects/my');
-            },
-          },
-          {
-            key: 'enterprise-library',
-            icon: <CodeSandboxOutlined />,
-            label: '기업 라이브러리',
-            onClick: () => {
-              router.push('/enterprise-library');
             },
           },
           {
