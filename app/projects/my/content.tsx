@@ -100,8 +100,8 @@ const Content = () => {
         </Col>
       </Row>
       <CustomDivider />
-      <Row align="top" gutter={[12, 4]}>
-        <Col span={0} md={6} lg={8}>
+      <Row className="flex-1 overflow-auto" align="top" gutter={[12, 4]}>
+        <Col span={0} md={6} lg={8} xxl={4} className="h-full overflow-auto">
           <DirectoryTree
             multiple
             defaultExpandAll
@@ -110,7 +110,12 @@ const Content = () => {
             treeData={treeData}
           />
         </Col>
-        <Col span={24} md={18} lg={16}>
+        <Col
+          span={24}
+          md={18}
+          lg={16}
+          xxl={20}
+          className="h-full overflow-x-hidden overflow-y-auto">
           <Row>
             {fakeProjects.map(project => (
               <Col key={project.id} span={12} md={8} lg={6}>

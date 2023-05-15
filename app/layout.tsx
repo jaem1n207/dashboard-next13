@@ -22,9 +22,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body suppressHydrationWarning className={inter.className}>
         <AntdStyleRegistry>
           <StyledComponentRegistry>
-            <Layout className="min-h-screen">
+            <Layout className="flex h-screen min-h-screen">
               <Sider />
-              <Layout className="bg-white site-layout">
+              <Layout className="flex flex-1 overflow-hidden bg-white site-layout">
                 <Header />
                 {children}
                 <Footer />
