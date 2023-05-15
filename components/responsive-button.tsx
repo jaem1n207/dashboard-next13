@@ -14,8 +14,8 @@ const ResponsiveButton = (props: ResponsiveButtonProps) => {
 
   const size = useMemo((): ButtonProps['size'] => {
     const smallSizes: ScreenSizeType[] = ['xs', 'sm'];
-    const middleSizes: ScreenSizeType[] = ['md', 'lg'];
-    const largeSizes: ScreenSizeType[] = ['xl', 'xxl'];
+    const middleSizes: ScreenSizeType[] = ['md', 'lg', 'xl'];
+    const largeSizes: ScreenSizeType[] = ['xxl'];
 
     if (smallSizes.includes(screensize)) {
       return 'small';
