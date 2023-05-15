@@ -4,13 +4,8 @@ import React, { useMemo } from 'react';
 import { Button } from 'antd';
 import type { ButtonProps } from 'antd/es/button/button';
 import { type ScreenSize as ScreenSizeType, useScreenSize } from '@/hooks/use-screen-size';
-import { styled } from 'styled-components';
 
 type ResponsiveButtonProps = Omit<ButtonProps, 'size'>;
-
-const StyledButton = styled(Button)<{ screensize: ButtonProps['size'] }>`
-  // 여기에서 버튼에 대한 커스텀 스타일 추가 가능.
-`;
 
 const ResponsiveButton = (props: ResponsiveButtonProps) => {
   const { children } = props;
@@ -32,9 +27,9 @@ const ResponsiveButton = (props: ResponsiveButtonProps) => {
   }, [screensize]);
 
   return (
-    <StyledButton {...props} screensize={size} size={size}>
+    <Button {...props} size={size}>
       {children}
-    </StyledButton>
+    </Button>
   );
 };
 
