@@ -75,7 +75,7 @@ const Content = () => {
   return (
     <main className="w-full h-full p-4 mx-auto overflow-auto md:p-10">
       <Chart />
-      <Grid className="gap-6" numColsSm={2} numColsLg={3}>
+      <Grid className="gap-6 mt-8" numColsSm={2} numColsLg={3}>
         {categories.map(item => (
           <Card key={item.title}>
             <Flex alignItems="start">
