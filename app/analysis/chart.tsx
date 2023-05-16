@@ -26,7 +26,7 @@ const valueFormatter = (number: number) =>
 const Chart = () => {
   return (
     <Card className="mt-8">
-      <Title>성능</Title>
+      <Title>수익</Title>
       <Text>매출과 이익 비교</Text>
       <AreaChart
         className="mt-4 h-80"
