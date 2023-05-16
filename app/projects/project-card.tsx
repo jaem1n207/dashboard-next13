@@ -7,7 +7,6 @@ import { BookOutlined, EditOutlined, MenuOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 
 import Overlay from '@/components/overlay';
-import ResponsiveButton from '@/components/responsive-button';
 import { useOverlay } from '@/hooks/use-overlay';
 
 const items: MenuProps['items'] = [
@@ -103,7 +102,7 @@ const ProjectCard = ({ imageUrl, name, author, users, date }: ProjectCardProps) 
                     e.stopPropagation();
                   }}>
                   <Space>
-                    <ResponsiveButton icon={<MenuOutlined />} />
+                    <Button icon={<MenuOutlined />} />
                   </Space>
                 </a>
               </Dropdown>

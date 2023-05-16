@@ -8,10 +8,8 @@ import {
   NotificationOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Layout, Space, Tooltip, Dropdown, message, Divider } from 'antd';
+import { Layout, Space, Tooltip, Dropdown, message, Divider, Button } from 'antd';
 import type { MenuProps } from 'antd/lib/menu';
-
-import ResponsiveButton from '@/components/responsive-button';
 
 const { Header: AntdHeader } = Layout;
 
@@ -77,29 +75,26 @@ const Header = () => {
         <div className="relative flex items-center h-full px-4">
           <div className="flex-1" />
           <Space className="flex float-right h-full gap-2 ml-auto overflow-auto">
-            <ResponsiveButton>
+            <Button>
               Styler 바로가기 <ArrowRightOutlined />
-            </ResponsiveButton>
+            </Button>
             <Dropdown
               menu={{ items: languagesItems, selectable: true, defaultSelectedKeys: ['ko'] }}
               trigger={['click']}>
-              <ResponsiveButton icon={<GlobalOutlined />} type="default">
+              <Button icon={<GlobalOutlined />} type="default">
                 언어 변경
-              </ResponsiveButton>
+              </Button>
             </Dropdown>
             <Tooltip title="알림">
-              <ResponsiveButton
-                icon={<NotificationOutlined />}
-                onClick={handleClearAllNotifications}
-              />
+              <Button icon={<NotificationOutlined />} onClick={handleClearAllNotifications} />
             </Tooltip>
             <Divider type="vertical" />
             <Dropdown
               menu={{ items: userItems, selectable: true, defaultSelectedKeys: ['profile'] }}
               trigger={['click']}>
-              <ResponsiveButton icon={<UserOutlined />} type="primary">
+              <Button icon={<UserOutlined />} type="primary">
                 Ben
-              </ResponsiveButton>
+              </Button>
             </Dropdown>
           </Space>
         </div>
