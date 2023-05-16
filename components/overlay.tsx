@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
+import { useDeviceDetect } from '@/hooks/use-device-detect';
 
 interface OverlayProps {
   className?: string;
@@ -20,12 +21,14 @@ const Overlay = ({
   bottomLeft,
   bottomRight,
 }: OverlayProps) => {
+  const { isMobile } = useDeviceDetect();
+
   return (
     <div
       className={clsx(
         'absolute inset-0 bg-black bg-opacity-50',
         isVisible ? 'block' : 'hidden',
-        className
+        isMobile ? '' : 'group-hover:block cursor-pointer'
       )}>
       {topLeft && <div className="absolute top-0 left-0 p-2">{topLeft}</div>}
       {topRight && <div className="absolute top-0 right-0 p-2">{topRight}</div>}

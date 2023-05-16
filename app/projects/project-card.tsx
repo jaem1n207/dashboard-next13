@@ -43,7 +43,7 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ imageUrl, name, author, users, date }: ProjectCardProps) => {
-  const { overlayVisible, toggleOverlay, overlayClasses } = useOverlay();
+  const { overlayVisible, toggleOverlay } = useOverlay();
 
   const [newName, setNewName] = useState(name);
 
@@ -94,11 +94,14 @@ const ProjectCard = ({ imageUrl, name, author, users, date }: ProjectCardProps) 
             <Button shape="circle" icon={<BookOutlined />} />
           </div>
           <Overlay
-            className={overlayClasses}
             isVisible={overlayVisible}
             topRight={
               <Dropdown menu={{ items }} trigger={['click']}>
-                <a onClick={e => e.preventDefault()}>
+                <a
+                  onClick={e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}>
                   <Space>
                     <ResponsiveButton icon={<MenuOutlined />} />
                   </Space>
