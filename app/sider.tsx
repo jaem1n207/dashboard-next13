@@ -4,8 +4,10 @@ import { Menu, theme } from 'antd';
 import { DropboxOutlined, SettingOutlined, TrophyOutlined } from '@ant-design/icons';
 import AntdSider from 'antd/es/layout/Sider';
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { type ScreenSize, useScreenSize } from '@/hooks/use-screen-size';
+
+const DEFAULT_SELECTED_KEYS = ['my-project'];
 
 const Sider = () => {
   const router = useRouter();
@@ -27,17 +29,18 @@ const Sider = () => {
     defaultCollapsedSizes.includes(screenSize) ? setCollapsed(true) : setCollapsed(false);
   }, [screenSize]);
 
-  const [selectedKey, setSelectedKey] = useState('my-project');
+  const pathname = usePathname();
+  const [selectedKey, setSelectedKey] = useState(DEFAULT_SELECTED_KEYS);
 
   useEffect(() => {
-    if (window.location.pathname === 'my') {
-      setSelectedKey('my-project');
-    } else if (window.location.pathname.includes('analysis')) {
-      setSelectedKey('analysis');
-    } else if (window.location.pathname.includes('settings')) {
-      setSelectedKey('settings');
+    if (pathname === 'my') {
+      setSelectedKey(['my-project']);
+    } else if (pathname.includes('analysis')) {
+      setSelectedKey(['analysis']);
+    } else if (pathname.includes('settings')) {
+      setSelectedKey(['settings']);
     }
-  }, []);
+  }, [pathname]);
 
   return (
     <AntdSider
@@ -55,8 +58,8 @@ const Sider = () => {
       <Menu
         mode="inline"
         className="h-full"
-        selectedKeys={[selectedKey]}
-        defaultSelectedKeys={['my-project']}
+        selectedKeys={selectedKey}
+        defaultSelectedKeys={DEFAULT_SELECTED_KEYS}
         items={[
           {
             key: 'my-project',
