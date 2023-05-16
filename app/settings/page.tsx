@@ -44,7 +44,7 @@ const Settings = ({
     },
     {
       id: '5',
-      name: 'Trpc',
+      name: 'tRPC',
       email: 'trpc@abc.com',
       phone: '010-1234-5682',
     },
