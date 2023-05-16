@@ -3,7 +3,7 @@
 import { Subtitle, Text } from '@tremor/react';
 import { Input, Row, Col, Divider } from 'antd';
 import Tree, { type DataNode, type DirectoryTreeProps } from 'antd/es/tree';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { faker } from '@faker-js/faker';
 
 import ProjectCard, { User } from '../project-card';
@@ -54,29 +54,35 @@ const Content = () => {
     console.log('Trigger Expand', keys, info);
   };
 
-  const createRandomProject = (): Project => ({
-    id: faker.string.uuid(),
-    name: faker.lorem.words(),
-    description: faker.lorem.paragraph(),
-    createdAt: faker.date.past(),
-    updatedAt: faker.date.past(),
-    author: {
-      id: faker.string.uuid(),
-      name: faker.internet.userName(),
-      imageUrl: faker.image.avatar(),
-    },
-    members: Array.from({ length: 10 }).map(() => ({
-      id: faker.string.uuid(),
-      name: faker.internet.userName(),
-      imageUrl: faker.image.avatar(),
-    })),
-    thumbnail: faker.image.url(),
-    bookmarked: Math.random() > 0.5,
-  });
+  const [fakeProjects, setFakeProjects] = useState<Project[]>([]);
 
-  const PROJECTS = faker.helpers.multiple(createRandomProject, {
-    count: 30,
-  });
+  useEffect(() => {
+    const createRandomProject = (): Project => ({
+      id: faker.string.uuid(),
+      name: faker.lorem.words(),
+      description: faker.lorem.paragraph(),
+      createdAt: faker.date.past(),
+      updatedAt: faker.date.past(),
+      author: {
+        id: faker.string.uuid(),
+        name: faker.internet.userName(),
+        imageUrl: faker.image.avatar(),
+      },
+      members: Array.from({ length: 10 }).map(() => ({
+        id: faker.string.uuid(),
+        name: faker.internet.userName(),
+        imageUrl: faker.image.avatar(),
+      })),
+      thumbnail: faker.image.url(),
+      bookmarked: Math.random() > 0.5,
+    });
+
+    const PROJECTS = faker.helpers.multiple(createRandomProject, {
+      count: 30,
+    });
+
+    setFakeProjects(PROJECTS);
+  }, []);
 
   return (
     <>
@@ -119,7 +125,7 @@ const Content = () => {
           xxl={20}
           className="h-full overflow-x-hidden overflow-y-auto">
           <Row gutter={[12, 12]}>
-            {PROJECTS.map(project => (
+            {fakeProjects.map(project => (
               <Col key={project.id} span={12} lg={8} xl={6}>
                 <ProjectCard
                   author={project.author}
