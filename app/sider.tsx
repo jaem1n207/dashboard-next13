@@ -27,6 +27,18 @@ const Sider = () => {
     defaultCollapsedSizes.includes(screenSize) ? setCollapsed(true) : setCollapsed(false);
   }, [screenSize]);
 
+  const [selectedKey, setSelectedKey] = useState('my-project');
+
+  useEffect(() => {
+    if (window.location.pathname === 'my') {
+      setSelectedKey('my-project');
+    } else if (window.location.pathname.includes('analysis')) {
+      setSelectedKey('analysis');
+    } else if (window.location.pathname.includes('settings')) {
+      setSelectedKey('settings');
+    }
+  }, []);
+
   return (
     <AntdSider
       breakpoint="md"
@@ -43,6 +55,7 @@ const Sider = () => {
       <Menu
         mode="inline"
         className="h-full"
+        selectedKeys={[selectedKey]}
         defaultSelectedKeys={['my-project']}
         items={[
           {
