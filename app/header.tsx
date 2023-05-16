@@ -93,7 +93,7 @@ const Header = () => {
               menu={{ items: userItems, selectable: true, defaultSelectedKeys: ['profile'] }}
               trigger={['click']}>
               <Button icon={<UserOutlined />} type="primary">
-                Ben
+                사용자
               </Button>
             </Dropdown>
           </Space>
