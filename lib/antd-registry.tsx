@@ -19,17 +19,17 @@ const AntdStyleRegistry = ({ children }: PropsWithChildren) => {
   });
 
   return (
-    <ConfigProvider
-      theme={{
-        token: {
-          colorPrimary: 'rgb(74, 144, 226)',
-          colorBgContainer: '#fff',
-        },
-      }}>
-      <StyleProvider hashPriority="high" cache={cache}>
-        {children}
-      </StyleProvider>
-    </ConfigProvider>
+    // <ConfigProvider
+    //   theme={{
+    //     token: {
+    //       colorPrimary: 'rgb(74, 144, 226)',
+    //       colorBgContainer: '#fff',
+    //     },
+    //   }}>
+    <StyleProvider hashPriority="high" cache={cache}>
+      {children}
+    </StyleProvider>
+    // </ConfigProvider>
   );
 };
 

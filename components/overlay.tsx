@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import clsx from 'clsx';
 
 interface OverlayProps {
   className?: string;
@@ -21,9 +22,11 @@ const Overlay = ({
 }: OverlayProps) => {
   return (
     <div
-      className={`absolute inset-0 bg-black bg-opacity-50 ${
-        isVisible ? 'block' : 'hidden'
-      } ${className}`}>
+      className={clsx(
+        'absolute inset-0 bg-black bg-opacity-50',
+        isVisible ? 'block' : 'hidden',
+        className
+      )}>
       {topLeft && <div className="absolute top-0 left-0 p-2">{topLeft}</div>}
       {topRight && <div className="absolute top-0 right-0 p-2">{topRight}</div>}
       {bottomLeft && <div className="absolute bottom-0 left-0 p-2">{bottomLeft}</div>}
