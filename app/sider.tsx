@@ -33,7 +33,7 @@ const Sider = () => {
   const [selectedKey, setSelectedKey] = useState(DEFAULT_SELECTED_KEYS);
 
   useEffect(() => {
-    if (pathname === 'my') {
+    if (pathname.includes('my')) {
       setSelectedKey(['my-project']);
     } else if (pathname.includes('analysis')) {
       setSelectedKey(['analysis']);
