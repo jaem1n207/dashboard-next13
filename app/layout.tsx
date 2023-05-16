@@ -1,4 +1,5 @@
 import { Inter } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/react';
 
 import { Layout } from '@/lib/antd';
 import './globals.css';
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </Layout>
           </StyledComponentRegistry>
         </AntdStyleRegistry>
+        <Analytics />
       </body>
     </html>
   );
