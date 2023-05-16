@@ -201,6 +201,98 @@ Ant Design의 원칙 중 하나는 **Stay on the Page**입니다. 이를 해석�
   - 버튼 아래에 다이얼로그 형태로 텍스트와 아이콘이 함께 표시됩니다.
 - 아이콘만 표시되는 버튼 UX 개선
   - 아이콘에 마우스를 올리면 툴팁으로 어떤 액션을 하는 것인지 표시됩니다.
+- iOS에서의 자동 줌 기능
+
+  이 경우, 아래 3가지 방법으로 해결할 수 있습니다. 장단점을 살펴보고 두 번째 방법을 적용했습니다.
+
+  - `<meta>` 태그로 확대 자체를 막기
+    페이지가 모바일 크기에 완전히 최적화되어 만들어져있다면 `<meta>` 태그를 이용해 줌을 막을 수 있습니다.
+    ```html
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    ```
+    하지만 아무리 모바일 화면에 맞게 잘 만들어져있다고 해도, 눈이 나쁜 사용자는 화면을 확대하고 싶을 수 있습니다. 이럴 때 위 방법으로 적용했다면 좋지 않은 경험을 줄 수 있습니다.
+  - 폰트 크기를 16px 이상으로 조정하기
+    가장 좋은 방법은 폰트 크기를 자동 줌인이 발생하지 않는 최소 크기인 `16px`에 맞추는 것입니다. [참고](https://stackoverflow.com/questions/2989263/disable-auto-zoom-in-input-text-tag-safari-on-iphone/7655319#7655319)
+
+    자동 줌 기능은 사용자를 불편하게 하려는 것이 아니라, 더 편하게 만들어주려는 것입니다.
+
+    16px보다 작은 폰트 크기에서 눈이 나쁜 사용자는 사이트를 이용하기 불편합니다. 때문에 이런 기능이 생긴거라면, 애초에 그 사람들이 불편하지 않게 만들어주어야 합니다.
+
+    ```css
+    input,
+    textarea,
+    select {
+      font-size: 1rem;
+    }
+    ```
+
+    `<input>` 말고 `<textarea>`, `select` 에도 같은 현상이 발생하기 때문에 같이 지정해주면 좋습니다.
+
+    이 외에도 [포커스 되었을 때만 폰트를 변경하는 방법](https://stackoverflow.com/questions/2989263/disable-auto-zoom-in-input-text-tag-safari-on-iphone/13934014#13934014)이나 [모바일/데스크탑 환경에 각각 폰트 크기를 다르게 하는 방법](https://stackoverflow.com/questions/2989263/disable-auto-zoom-in-input-text-tag-safari-on-iphone/26069511#26069511)도 있습니다.
+
+  - 폰트 크기를 16px로 지정하고 원하는 크기로 보이도록 `transform: scale()`을 이용하기
+    Jeffery To의 [No input zoom in Safari on iPhone, the pixel perfect way](https://thingsthemselves.com/no-input-zoom-in-safari-on-iphone-the-pixel-perfect-way/)에서는 `<input>`의 폰트 크기는 16px로 적용하되, `transform:scale()`을 이용해서 원하는 폰트 크기만큼 작게 보이도록 만들라고 합니다.
+    최종적으로 적용하고 싶은 스타일이 아래와 같다면,
+
+    ```css
+    input[type='text'] {
+      border-radius: 5px;
+      font-size: 12px;
+      line-height: 20px;
+      padding: 5px;
+      width: 100%;
+    }
+    ```
+
+    16px로 폰트 크기를 정하고 12px 크기로 보이도록 `<input>`을 축소할 것이기 때문에, 그 비율만큼 다른 요소들의 크기를 키워줍니다.
+
+    ```css
+    input[type='text'] {
+      border-radius: 6.666666667px;
+      font-size: 16px;
+      line-height: 26.666666667px;
+      padding: 6.666666667px;
+      width: 133.333333333%;
+    }
+    ```
+
+    그리고 이제 계산된 스타일을 적용한 `<input>`에 `transform`으로 scale을 바꿔줍니다.
+
+    ```css
+    input[type='text'] {
+      border-radius: 6.666666667px;
+      font-size: 16px;
+      line-height: 26.666666667px;
+      padding: 6.666666667px;
+      width: 133.333333333%;
+
+      transform: scale(0.75);
+      transform-origin: left top;
+    }
+    ```
+
+    `<input>`이 축소된 만큼 우측과 하단에 공백이 생기므로 이걸 채워줍니다.
+
+    ```css
+    input[type='text'] {
+      border-radius: 6.666666667px;
+      font-size: 16px;
+      line-height: 26.666666667px;
+      padding: 6.666666667px;
+      width: 133.333333333%;
+
+      transform: scale(0.75);
+      transform-origin: left top;
+
+      /* 여기를 추가합니다. */
+      margin-bottom: -10px;
+      margin-right: -33.333333333%;
+    }
+    ```
+
+    `textarea`나 `select`에도 적용되기 때문에 이걸 쓰고 있다면 계산할 게 더 많아집니다. 조금 머리가 아플 수도 있겠습니다.
 
 ## 참고
 
@@ -210,3 +302,4 @@ Ant Design의 원칙 중 하나는 **Stay on the Page**입니다. 이를 해석�
 - [Next13 SSG, ISR 사용](https://mycodings.fly.dev/blog/2022-11-16-nextjs-13-how-to-ssg-isr-and-not-found)
 - [Next13 Client Component](https://mycodings.fly.dev/blog/2022-11-17-nextjs-13-client-component)
 - [Antd with Nextjs 13](https://github.com/ant-design/ant-design/issues/38555)
+- [iOS 자동 줌인 현상](https://devsoyoung.github.io/posts/ios-input-focus-zoom/)
