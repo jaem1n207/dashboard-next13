@@ -123,7 +123,7 @@ const Content = () => {
           lg={16}
           xl={18}
           xxl={20}
-          className="h-full overflow-x-hidden overflow-y-auto">
+          className="h-full pb-12 overflow-x-hidden overflow-y-auto">
           <Row gutter={[12, 12]}>
             {fakeProjects.map(project => (
               <Col key={project.id} span={12} lg={8} xl={6}>
