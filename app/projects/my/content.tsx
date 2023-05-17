@@ -4,7 +4,7 @@ import { Subtitle, Text } from '@tremor/react';
 import { Input, Row, Col, Divider } from 'antd';
 import Tree, { type DataNode, type DirectoryTreeProps } from 'antd/es/tree';
 import React, { useEffect, useState } from 'react';
-import { faker } from '@faker-js/faker';
+// import { faker } from '@faker-js/faker';
 
 import ProjectCard, { User } from '../project-card';
 
@@ -57,31 +57,67 @@ const Content = () => {
   const [fakeProjects, setFakeProjects] = useState<Project[]>([]);
 
   useEffect(() => {
-    const createRandomProject = (): Project => ({
-      id: faker.string.uuid(),
-      name: faker.lorem.words(),
-      description: faker.lorem.paragraph(),
-      createdAt: faker.date.past(),
-      updatedAt: faker.date.past(),
+    // const createRandomProject = (): Project => ({
+    //   id: faker.string.uuid(),
+    //   name: faker.lorem.words(),
+    //   description: faker.lorem.paragraph(),
+    //   createdAt: faker.date.past(),
+    //   updatedAt: faker.date.past(),
+    //   author: {
+    //     id: faker.string.uuid(),
+    //     name: faker.internet.userName(),
+    //     imageUrl: faker.image.avatar(),
+    //   },
+    //   members: Array.from({ length: 10 }).map(() => ({
+    //     id: faker.string.uuid(),
+    //     name: faker.internet.userName(),
+    //     imageUrl: faker.image.avatar(),
+    //   })),
+    //   thumbnail: faker.image.url(),
+    //   bookmarked: Math.random() > 0.5,
+    // });
+
+    // const PROJECTS = faker.helpers.multiple(createRandomProject, {
+    //   count: 30,
+    // });
+
+    const uuid = () => {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        const r = (Math.random() * 16) | 0;
+        const v = c === 'x' ? r : (r & 0x3) | 0x8;
+
+        return v.toString(16);
+      });
+    };
+
+    const randomDate = (start: Date, end: Date) =>
+      new Date(
+        start.getTime() + Math.random() * (end.getTime() - start.getTime())
+      ).toLocaleDateString();
+
+    const createRandomProject = (index: number): Project => ({
+      id: uuid(),
+      name: `Project ${index}`,
+      description: `Project ${index} description`,
+      createdAt: new Date(randomDate(new Date(2012, 0, 1), new Date())),
+      updatedAt: new Date(randomDate(new Date(2012, 0, 1), new Date())),
       author: {
-        id: faker.string.uuid(),
-        name: faker.internet.userName(),
-        imageUrl: faker.image.avatar(),
+        id: uuid(),
+        name: `Author ${index}`,
+        imageUrl: `/project-thumbnail.png`,
       },
       members: Array.from({ length: 10 }).map(() => ({
-        id: faker.string.uuid(),
-        name: faker.internet.userName(),
-        imageUrl: faker.image.avatar(),
+        id: uuid(),
+        name: `Member ${index}`,
+        imageUrl: `/project-thumbnail.png`,
       })),
-      thumbnail: faker.image.url(),
+      thumbnail: `/project-thumbnail.png`,
       bookmarked: Math.random() > 0.5,
     });
 
-    const PROJECTS = faker.helpers.multiple(createRandomProject, {
-      count: 30,
+    Array.from({ length: 30 }).map((_, index) => {
+      setFakeProjects(prev => [...prev, createRandomProject(index)]);
     });
-
-    setFakeProjects(PROJECTS);
   }, []);
 
   return (
