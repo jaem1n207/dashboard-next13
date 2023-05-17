@@ -76,7 +76,7 @@ const ProjectCard = ({ imageUrl, name, author, users, date }: ProjectCardProps) 
 
   return (
     <Card
-      className="relative group"
+      className="relative cursor-default group"
       cover={
         <div className="relative" onClick={toggleOverlay}>
           <Image
